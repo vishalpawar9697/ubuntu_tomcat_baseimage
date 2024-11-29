@@ -1,11 +1,34 @@
+# Use Ubuntu as the base image
 FROM ubuntu:latest
-ENV CATALINA_HOME=/opt/apache-tomcat-8.5.16
-ENV PATH=$CATALIN_HOME/bin:$PATH
-RUN apt-get update
-RUN apt-get install default-jdk -y
-ADD http://www-us.apache.org/dist/tomcat/tomcat-8/v8.5.16/bin/apache-tomcat-8.5.16.tar.gz /opt/
-WORKDIR /opt/
-RUN tar -xvzf apache-tomcat-8.5.16.tar.gz
-WORKDIR /opt/apache-tomcat-8.5.16/bin/
+
+# Set environment variables for non-interactive installation
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Update the package list and install required packages
+RUN apt-get update && apt-get install -y \
+    openjdk-11-jdk curl wget && \
+    rm -rf /var/lib/apt/lists/*
+
+# Set JAVA_HOME environment variable
+ENV JAVA_HOME /usr/lib/jvm/java-11-openjdk-amd64
+ENV PATH $JAVA_HOME/bin:$PATH
+
+# Download and install Apache Tomcat
+ENV TOMCAT_VERSION 9.0.80
+RUN wget https://downloads.apache.org/tomcat/tomcat-9/v${9.0.80}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz && \
+    tar -xzf apache-tomcat-${9.0.80}.tar.gz && \
+    mv apache-tomcat-${9.0.80} /usr/local/tomcat && \
+    rm apache-tomcat-${9.0.80}.tar.gz
+
+# Set environment variables for Tomcat
+ENV CATALINA_HOME /usr/local/tomcat
+ENV PATH $CATALINA_HOME/bin:$PATH
+
+# Expose Tomcat's default port
 EXPOSE 8080
-CMD ["catalina.sh", "run"]
+
+# Set the working directory
+WORKDIR /usr/local/tomcat
+
+# Start Tomcat
+CMD ["bin/catalina.sh", "run"]
