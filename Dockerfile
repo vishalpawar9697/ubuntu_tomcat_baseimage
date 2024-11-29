@@ -14,7 +14,7 @@ ENV JAVA_HOME /usr/lib/jvm/java-11-openjdk-amd64
 ENV PATH $JAVA_HOME/bin:$PATH
 
 # Define Tomcat version
-ENV TOMCAT_VERSION 9.0.80
+ENV TOMCAT_VERSION 9.0.97
 
 # Download and install Apache Tomcat
 RUN wget https://downloads.apache.org/tomcat/tomcat-9/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz && \
