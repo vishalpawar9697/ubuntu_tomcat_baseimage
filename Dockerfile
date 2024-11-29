@@ -1,5 +1,5 @@
 # # Use Ubuntu as the base image
-#   ubuntu_tomcat_baseimage
+#   ubuntu_tomcat_baseimage     # image size = 751MB
 # =================================================================================================
 # FROM ubuntu:latest
 
@@ -39,7 +39,7 @@
 
 # ===================================================================================================
 
-# New code ubuntu tomcat_base_image with small size image.
+# New code ubuntu tomcat_base_image with small size image.    # image size= 692MB
 
 # ===================================================================================================
 
